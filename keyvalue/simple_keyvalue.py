@@ -7,17 +7,18 @@ class SimpleKeyValueStore(KeyValueStore):
         self.source = source
 
     def set(self, key: str, value: str) -> str:
-        data = str(key) + ',' + str(value)
+        data = str(key) + ',' + str(value) + '\n'
         with open(self.source, 'a') as f:
             f.write(data)
 
     def get(self, key: str) -> str:
         with open(self.source, 'r') as f:
             contents = f.read()
-            regx = str(key) + ',(.*)$'
+            print(contents)
+            regx = str(key) + ',(.*)\n'
             matches = re.findall(regx, contents)
-            if matches:
-                return matches[-1].groups(0)
+            if matches is not None:
+                return matches[-1]
             else:
                 return 'null'
 
