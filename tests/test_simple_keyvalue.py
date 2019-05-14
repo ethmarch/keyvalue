@@ -18,13 +18,16 @@ class TestSimpleKeyValueStore(unittest.TestCase):
 
         with open(self.source) as f:
             lines = f.readlines()
-            for line in lines:
-                print(line)
+            
             self.assertEqual(lines[0], 'test,case\n')
             self.assertEqual(lines[1], 'number,42\n')
             self.assertEqual(lines[2], 'test,again\n')
 
     def test_get(self):
+        self.store.set('test', 'case')
+        self.store.set('number', 42)
+        self.store.set('test', 'again')
+
         self.assertEqual(self.store.get('number'), '42')
         self.assertEqual(self.store.get('test'), 'again')
         self.assertEqual(self.store.get('nonexistent'), 'null')

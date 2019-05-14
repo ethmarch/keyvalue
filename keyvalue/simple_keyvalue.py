@@ -14,11 +14,9 @@ class SimpleKeyValueStore(KeyValueStore):
     def get(self, key: str) -> str:
         with open(self.source, 'r') as f:
             contents = f.read()
-            print(contents)
             regx = str(key) + ',(.*)\n'
             matches = re.findall(regx, contents)
-            if matches is not None:
+            if len(matches) > 0:
                 return matches[-1]
             else:
                 return 'null'
-
